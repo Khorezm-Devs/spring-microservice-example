@@ -1,0 +1,48 @@
+package uz.agrobank.eureka;
+
+
+public class SecurityConfig{
+    
+}
+        
+
+//@Configuration
+//@EnableWebSecurity
+//@Order(1)
+//public class SecurityConfig extends WebSecurityConfigurerAdapter {
+//
+//// https://spring.io/blog/2017/11/01/spring-security-5-0-0-rc1-released#password-encoding
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder authservice) throws Exception {
+//        authservice
+//	.inMemoryAuthentication()
+//		.passwordEncoder(NoOpPasswordEncoder.getInstance())
+//		.withUser("mpOwner").password("mp19181975Secret").roles("SYSTEM");
+//       // authservice.inMemoryAuthentication().withUser("mpOwner").password("mp19181975Secret").roles("SYSTEM");
+//    }
+//
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        
+//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS).and()
+//                .requestMatchers().antMatchers("/eureka/**").and().authorizeRequests().antMatchers("/eureka/**")
+//                .hasRole("SYSTEM").anyRequest().denyAll().and().httpBasic().and().csrf()
+//                .disable();
+//    }
+//
+//    @Configuration
+//    // no order tag means this is the last security filter to be evaluated
+//    public static class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
+//
+//        @Autowired
+//        public void configureGlobal(AuthenticationManagerBuilder authservice) throws Exception {
+//            authservice.inMemoryAuthentication();
+//        }
+//
+//        @Override
+//        protected void configure(HttpSecurity http) throws Exception {
+//            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and().httpBasic().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/").hasRole("ADMIN").antMatchers("/info", "/health").authenticated().anyRequest().denyAll()
+//                    .and().csrf().disable();
+//        }
+//    }
+//}

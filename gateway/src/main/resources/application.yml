@@ -1,0 +1,89 @@
+jwt:
+    header: Authorization
+    expires_in: 300   
+    mobile_expires_in: 300    
+    secret: supersecret2019
+    zuulSecret: zuulSecret2025
+
+zuul:
+  prefix: /gateway/micro
+  routes:
+    auth:
+      path: /auth/**
+      serviceId: authservice
+    register:
+      path: /register/**
+      serviceId: registerservice
+    sms:
+      path: /sms/**
+      serviceId: smsservice
+    card:
+      path: /card/**
+      serviceId: cardservice
+    transaction:
+      path: /transaction/**
+      serviceId: transactionservice
+
+server:
+   port: 8079
+   
+management:
+  security:  
+    enabled: false    
+
+spring:
+  application:
+    name: zuulweb
+  profiles:
+    active:
+      default
+      
+  cloud:
+    discovery:
+       service-id: zuul
+       enabled: true
+      
+  zipkin:
+    baseUrl: ${ZIPKIN_URI:http://127.0.0.1:9411}
+    enabled: true
+  sleuth:
+    enabled: true
+    http:
+      enabled: true   
+    sampler:
+    percentage: 1 
+    
+
+auth:
+    ribbon:
+     ReadTimeout: 30000
+register:
+    ribbon:
+     ReadTimeout: 30000
+sms:
+  ribbon:
+    ReadTimeout: 30000
+card:
+    ribbon:
+     ReadTimeout: 30000
+transaction:
+  ribbon:
+    ReadTimeout: 30000
+
+ribbon:
+  eureka:
+     enabled: true
+     
+eureka:
+  instance:  
+    leaseRenewalIntervalInSeconds: 10
+    prefer-ip-address: true
+    leaseExpirationDurationInSeconds: 3
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    enabled: true
+    serviceUrl:
+     # defaultZone: ${EUREKA_URI:http://mpOwner:mp19181975Secret@eureka:8761/eureka}
+      defaultZone: http://127.0.0.1:8761/eureka
+

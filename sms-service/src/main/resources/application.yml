@@ -1,0 +1,72 @@
+management:
+  security:
+    enabled: false
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    jmx:
+      exposure:
+        include: '*'
+    web:
+      exposure:
+        include: '*'
+        base-path: /actuator
+    cors:
+      allowed-origins: 'true'
+      enabled-by-default: 'false'
+
+server:
+  port: 5010
+
+spring:
+  application:
+    name: smsservice
+
+  cloud:
+    discovery:
+      service-id: smsservice
+      enabled: true
+
+  zipkin:
+    baseUrl: ${ZIPKIN_URI:http://127.0.0.1:9411}
+    enabled: true
+  sleuth:
+    enabled: true
+    http:
+      enabled: true
+    sampler:
+    percentage: 1
+
+  data:
+    mongodb:
+      #       uri: mongodb://BingoBongo:Abcdf@127.0.0.1:27017/userDB?ssl=false&connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=100&maxIdleTimeMS=900000&authSource=admin
+      uri: mongodb://127.0.0.1:27017/payment?ssl=false&connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=100&maxIdleTimeMS=900000&authSource=admin
+
+
+
+jwt:
+  header: Authorization
+  expires_in: 300
+  mobile_expires_in: 400
+  secret: supersecret2019
+  zuulSecret: zuulSecret2025
+
+eureka:
+  instance:
+    hostname: smsservice
+    leaseRenewalIntervalInSeconds: 10
+    prefer-ip-address: true
+    leaseExpirationDurationInSeconds: 3
+  client:
+    hostname: smsservice
+    enabled: true
+    registryFetchIntervalSeconds: 5
+    healthcheck:
+      enabled: true
+    lease:
+      duration: 5
+    serviceUrl:
+      #      defaultZone: ${EUREKA_URI:http://mpOwner:mp19181975Secret@127.0.0.1:8761/eureka}
+      defaultZone: http://127.0.0.1:8761/eureka

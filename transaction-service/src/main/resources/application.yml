@@ -1,0 +1,73 @@
+management:
+  security:  
+   enabled: false      
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    jmx:
+      exposure:
+       include: '*'
+    web:
+     exposure:
+      include: '*'
+      base-path: /actuator
+    cors:
+      allowed-origins: 'true'
+      enabled-by-default: 'false'
+    
+server:
+    port: 5004
+    
+spring:
+  application:
+    name: transactionservice
+    
+  cloud:
+    discovery:
+       service-id: transactionservice
+       enabled: true
+    inetutils:
+       default-hostname: transactionservice
+      
+  zipkin:
+    baseUrl: ${ZIPKIN_URI:http://127.0.0.1:9411}
+    enabled: true
+  sleuth:
+    enabled: true
+    http:
+      enabled: true   
+    sampler:
+    percentage: 1 
+    
+
+  data:
+    mongodb:       
+#       uri: mongodb://BingoBongo:Abcdf@mongonode:27017/transactionDB?ssl=false&connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=100&maxIdleTimeMS=900000&authSource=admin
+       uri: mongodb://127.0.0.1:27017/payment?ssl=false&connectTimeoutMS=300000&minPoolSize=0&maxPoolSize=100&maxIdleTimeMS=900000&authSource=admin
+
+     
+
+jwt:
+    header: Authorization
+    expires_in: 300 
+    mobile_expires_in: 400   
+    secret: supersecret2019
+    zuulSecret: zuulSecret2025
+    
+eureka:
+  instance:
+    hostname: transactionservice
+    leaseRenewalIntervalInSeconds: 10
+    prefer-ip-address: true
+    leaseExpirationDurationInSeconds: 3
+  client:
+    hostname: transactionservice
+    enabled: true
+    registryFetchIntervalSeconds: 5   
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      #defaultZone: http://mpOwner:mp19181975Secret@eureka:8761/eureka, http://mpOwner:mp19181975Secret@eureka:8762/eureka
+      defaultZone: http://127.0.0.1:8761/eureka
